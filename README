@@ -1,6 +1,3 @@
-What it does
-------------
-
 Simple command line time tracking.
 
 
@@ -29,4 +26,10 @@ Stop a task, without starting a new one
   d d
   
   
+To view
+-------
+
+Daily files are created in year folders in ~/.dtimetracker
+
+One day I may build a nice way to view them.
 
