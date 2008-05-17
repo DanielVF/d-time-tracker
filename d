@@ -1,15 +1,17 @@
 #!/usr/bin/env ruby
+# Daniel Von Fange
+
+
+# Configuration
 
 $data_dir = File.expand_path('~/.dtimetracker')
-data_dir = $data_dir
 
+# Program starts
+require 'time'
+data_dir = $data_dir
 input = $*.join(' ').strip
 
-
-require 'time'
 `/usr/bin/env mkdir -p #{data_dir}`
-
-
 
 
 def current_task
@@ -38,6 +40,7 @@ def h_m(minutes)
   hours_minutes = "#{hours}:#{'%02d' % (minutes % 60)}"
 end
 
+# And now for the real work...
 
 # Show current task
 if input.strip.empty?
@@ -50,7 +53,6 @@ if input.strip.empty?
   puts "In progress\t#{h_m(minutes)}\t#{task}"
   exit
 end
-
 
 # If there's a current task, record the time spent on it.
 if current_task
@@ -71,5 +73,4 @@ if ! input.match(/^(d|done|stop|)$/)
   set_current_task(input)
   puts "Started \tnow\t#{input}"
 end
-
 
