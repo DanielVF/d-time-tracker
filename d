@@ -43,7 +43,7 @@ end
 # And now for the real work...
 
 # Show current task
-if input.strip.empty?
+if input.empty?
   if ! current_task
     puts "You're not working on anything"
     exit
@@ -53,6 +53,17 @@ if input.strip.empty?
   puts "In progress\t#{h_m(minutes)}\t#{task}"
   exit
 end
+
+if input.match(/^(e|edit)$/)
+  if ! ENV['EDITOR']
+      puts "No EDITOR environment varible defined"
+      exit
+  end
+  
+  `#{ENV['EDITOR']} #{data_dir}/current`
+  exit
+end
+
 
 # If there's a current task, record the time spent on it.
 if current_task

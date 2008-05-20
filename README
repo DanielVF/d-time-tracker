@@ -25,6 +25,10 @@ Stop a task, without starting a new one
   d done
   d d
   
+Edit the task you are working on
+
+  d edit
+  d e
   
 To view
 -------
