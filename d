@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 # Daniel Von Fange
+# Matthias Derer
 
 
 # Configuration
@@ -15,8 +16,16 @@ input = $*.join(' ').strip
 
 
 def current_task
-  return nil if ! File.exists?("#{$data_dir}/current")
-  File.open("#{$data_dir}/current",'r') do |f|
+    return task("current")
+end
+
+def last_task
+    return task("last")
+end
+
+def task(whichtask)
+  return nil if ! File.exists?("#{$data_dir}/#{whichtask}")
+  File.open("#{$data_dir}/#{whichtask}",'r') do |f|
     line = f.gets
     return if line.nil?
     
@@ -30,6 +39,9 @@ end
 
 def set_current_task(task)
   `/usr/bin/env mkdir -p #{$data_dir}`
+  if File.exists?("#{$data_dir}/last")
+    File.unlink("#{$data_dir}/last")
+  end
   File.open("#{$data_dir}/current",'w') do |f|
     f.puts "#{Time.now}\t#{task.gsub(/\n/,' ')}"
   end
@@ -64,6 +76,18 @@ if input.match(/^(e|edit)$/)
   exit
 end
 
+if input.match(/^(r|resume)$/)
+  if ! last_task
+    puts "No task to resume"
+    exit
+  end
+
+  start, task, end_time, minutes = last_task
+  set_current_task(task)
+  puts "Resuming #{task}"
+  exit
+
+end
 
 # If there's a current task, record the time spent on it.
 if current_task
@@ -76,7 +100,7 @@ if current_task
   
   puts("Finished\t#{h_m(minutes)}\t#{task}")
   
-  File.unlink("#{data_dir}/current")
+  File.rename("#{data_dir}/current", "#{data_dir}/last")
 end
 
 # Unless we are only marking a task done, start a new task

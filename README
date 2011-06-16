@@ -30,6 +30,11 @@ Edit the task you are working on
   d edit
   d e
   
+Resume the last stopped/done task
+
+  d resume
+  d r
+
 To view
 -------
 
