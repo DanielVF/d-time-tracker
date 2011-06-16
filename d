@@ -39,7 +39,9 @@ end
 
 def set_current_task(task)
   `/usr/bin/env mkdir -p #{$data_dir}`
-  File.unlink("#{$data_dir}/last")
+  if File.exists?("#{$data_dir}/last")
+    File.unlink("#{$data_dir}/last")
+  end
   File.open("#{$data_dir}/current",'w') do |f|
     f.puts "#{Time.now}\t#{task.gsub(/\n/,' ')}"
   end
