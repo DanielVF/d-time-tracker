@@ -1,39 +1,38 @@
-Simple command line time tracking.
+# Simple command line time tracking.
 
 
 To install
 ----------
 
-  sudo chmod 755 d
-  sudo cp d /usr/local/bin
-
+    sudo chmod 755 d
+    sudo cp d /usr/local/bin
 
 To use
 ------
 
 Show current task:
 
-  d
+    t
   
 Start a new task and finish previous
   
-  d <What your working on>
+    t <What your working on>
   
 Stop a task, without starting a new one
 
-  d stop
-  d done
-  d d
+    t stop
+    t done
+    t d
   
 Edit the task you are working on
 
-  d edit
-  d e
+    t edit
+    t e
   
 Resume the last stopped/done task
 
-  d resume
-  d r
+    t resume
+    t r
 
 To view
 -------
