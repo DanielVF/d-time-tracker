@@ -1,5 +1,6 @@
-# t-time-tracker: simple command line time tracking
+# t-time-tracker
 
+Simple command line time tracking.
 
 To install
 ----------
