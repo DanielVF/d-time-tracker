@@ -1,11 +1,10 @@
-#!/usr/bin/env ruby
+#!/Users/cgenco/.rvm/rubies/ruby-1.9.2-p290/bin/ruby
 # Daniel Von Fange
 # Matthias Derer
 # Christian Genco
 
 # Configuration
-
-$data_dir = File.expand_path('~/.dtimetracker')
+$data_dir = File.expand_path('~/Dropbox/.ttimetracker')
 
 # Program starts
 require 'time'
