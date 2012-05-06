@@ -29,7 +29,7 @@ Start a new task and finish previous
   
 Start a task at a custom time (powered by [Chronic](https://github.com/mojombo/chronic))
 
-    $ t took a break --at "5 minutes ago"
+    $ t took a break --at 5 minutes ago
     Finished: writing t-time-tracker README (0:23)
     Started: took a break (at 10:25pm)
 

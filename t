@@ -12,16 +12,15 @@ require 'time'
 # create directories if they doesn't exist
 `/usr/bin/env mkdir -p #{@data_dir} #{@dirname}`
 
-@custom_time = nil
 if i = ARGV.index("--at")
   require 'chronic' # only load chronic if you need it
   ARGV.delete_at(i) # remove "--at"
-  @custom_time = Chronic.parse(ARGV[i], :context => :past)
-  ARGV.delete_at(i) # remove the custom time argument
+  @custom_time_in_words = ARGV[i..-1].join(' ')
+  @custom_time = Chronic.parse(@custom_time_in_words, :context => :past)
 end
 
 # Program starts
-input = $*.join(' ').strip
+input = $*.join(' ').sub(@custom_time_in_words || '', '').strip
 
 def task(whichtask)
   return nil if ! File.exists?("#{@data_dir}/#{whichtask}")
@@ -133,5 +132,5 @@ end
 # Unless we are only marking a task done, start a new task
 if ! input.match(/^(d|done|stop|)$/)
   set_current_task(input)
-  puts "Started: #{input} (#{@custom_time ? 'at ' + @custom_time.strftime('%l:%M%P') : 'now'})"
+  puts "Started: #{input} (#{@custom_time ? 'at ' + @custom_time.strftime('%-l:%M%P') : 'now'})"
 end
