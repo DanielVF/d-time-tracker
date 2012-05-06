@@ -6,6 +6,8 @@ To install
 
     cd /usr/local/bin/test && wget https://raw.github.com/christiangenco/t-time-tracker/master/t  --no-check-certificate && chmod 755 t
 
+By default, logs are stored in `~/Dropbox/.ttimetracker`, but this can easily be changed in the Configuration section at the top of `t`.
+
 To use
 ------
 
