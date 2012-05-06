@@ -4,8 +4,7 @@
 To install
 ----------
 
-    sudo chmod 755 t
-    sudo cp t /usr/local/bin
+    cd /usr/local/bin/test && wget https://raw.github.com/christiangenco/t-time-tracker/master/t  --no-check-certificate && chmod 755 t
 
 To use
 ------
