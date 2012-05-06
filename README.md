@@ -76,3 +76,10 @@ In each .csv file there are three columns representing the start time, end time,
     18:25:40, 18:35:08, learning how to cat daddy
 
 One day I may build a nicer way to view them.
+
+Similar Projects
+------------
+
+* [mcmire](https://github.com/mcmire)'s [time_tracker](https://github.com/mcmire/time_tracker)
+* [ymendel](https://github.com/ymendel)'s [one_inch_punch](https://github.com/ymendel/one_inch_punch)
+* [samg](https://github.com/samg)'s [timetrap](https://github.com/samg/timetrap)
