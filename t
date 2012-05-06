@@ -23,14 +23,6 @@ end
 # Program starts
 input = $*.join(' ').strip
 
-def current_task
-    return task("current")
-end
-
-def last_task
-    return task("last")
-end
-
 def task(whichtask)
   return nil if ! File.exists?("#{@data_dir}/#{whichtask}")
   File.open("#{@data_dir}/#{whichtask}",'r') do |f|
@@ -42,9 +34,11 @@ def task(whichtask)
     end_time = @custom_time || Time.new
     minutes = ((end_time - start).to_f / 60).ceil
     # p "task(#{whichtask}) -> [start: #{start}, task:#{task}, end_time: #{end_time}, minutes: #{minutes}]"
-    return start, task, end_time, minutes
+    return [start, task, end_time, minutes]
   end
 end
+def current_task; task("current"); end
+def last_task; task("last"); end
 
 def format_time(t)
   # http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime
@@ -70,7 +64,7 @@ end
 
 # Show current task
 if input.empty?
-  if ! current_task
+  if !current_task
     puts "You're not working on anything"
     exit
   end
@@ -81,6 +75,8 @@ if input.empty?
 end
 
 if input.match(/^(e|edit)$/)
+  puts "opening #{@data_dir}"
+
   if ! ENV['EDITOR']
       puts "No EDITOR environment varible defined"
       puts "Set your EDITOR in your .bashrc or .zshrc file by adding one of these lines:"
@@ -119,12 +115,11 @@ if input.match(/^(r|resume)$/)
   set_current_task(task)
   puts "Resuming #{task}"
   exit
-
 end
 
 # If there's a current task, record the time spent on it.
-if current_task
-  start, task, end_time, minutes = current_task
+if current = current_task
+  start, task, end_time, minutes = current
 
   File.open(@filename,'a') do |f|
     f.puts "#{format_time start}, #{format_time end_time}, #{task.strip}"
