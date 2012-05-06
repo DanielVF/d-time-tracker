@@ -6,9 +6,11 @@ To install
 
     cd /usr/local/bin/test && wget https://raw.github.com/christiangenco/t-time-tracker/master/t  --no-check-certificate && chmod 755 t
 
-Depends on [Ruby](http://www.ruby-lang.org/en/downloads/) and the [Chronic](https://github.com/mojombo/chronic)) gem (if you want to use the custom time feature below).
+Depends on [Ruby](http://www.ruby-lang.org/en/downloads/) and the [Chronic](https://github.com/mojombo/chronic) gem (if you want to use custom times).
 
-By default, logs are stored in `~/Dropbox/.ttimetracker`. This can be changed in the Configuration section at the top of `t`.
+By default, logs are stored in `~/Dropbox/.ttimetracker`. This can be changed by editing the line:
+
+    $data_dir = File.expand_path('~/Dropbox/.ttimetracker')
 
 To use
 ------
