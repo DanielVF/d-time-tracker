@@ -44,13 +44,13 @@ Edit tasks with your `$EDITOR`
 
     $ t edit
     $ t e
-    # change "took a break" to "working" in Sublime Text 2, my $EDITOR
+    # change "took a break" to "napping" in Sublime Text 2, my $EDITOR
   
 Resume the last stopped/done task
 
     $ t resume
     $ t r
-    Resuming working
+    Resuming napping
 
 List today's tasks
 
