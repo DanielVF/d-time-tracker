@@ -6,13 +6,21 @@
 # Configuration
 $data_dir = File.expand_path('~/Dropbox/.ttimetracker')
 
+@custom_time = nil
+if i = ARGV.index("--at")
+  require 'chronic' # only load chronic if you need it
+  ARGV.delete_at(i) # remove "--at"
+  @custom_time = Chronic.parse(ARGV[i], :context => :past)
+  ARGV.delete_at(i) # remove the custom time argument
+end
+
 # Program starts
 require 'time'
 data_dir = $data_dir
 input = $*.join(' ').strip
 
+# create the data directory if it doesn't exist
 `/usr/bin/env mkdir -p #{data_dir}`
-
 
 def current_task
     return task("current")
@@ -27,13 +35,19 @@ def task(whichtask)
   File.open("#{$data_dir}/#{whichtask}",'r') do |f|
     line = f.gets
     return if line.nil?
-    
-    start, task = line.strip.split("\t")
+    # p "line: #{line}"
+    start, task = line.strip.split(",").map(&:strip)
     start = Time.parse(start)
-    end_time = Time.new
+    end_time = @custom_time || Time.new
     minutes = ((end_time - start).to_f / 60).ceil
+    # p "task(#{whichtask}) -> [start: #{start}, task:#{task}, end_time: #{end_time}, minutes: #{minutes}]"
     return start, task, end_time, minutes
   end
+end
+
+def format_time(t)
+  # http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime
+  t.strftime("%H:%M:%S")
 end
 
 def set_current_task(task)
@@ -42,7 +56,7 @@ def set_current_task(task)
     File.unlink("#{$data_dir}/last")
   end
   File.open("#{$data_dir}/current",'w') do |f|
-    f.puts "#{Time.now}\t#{task.gsub(/\n/,' ')}"
+    f.puts "#{format_time(@custom_time || Time.now)}, #{task.strip}"
   end
 end
 
@@ -61,17 +75,19 @@ if input.empty?
   end
     
   start, task, end_time, minutes = current_task
-  puts "In progress\t#{h_m(minutes)}\t#{task}"
+  puts "In progress: #{task} (#{h_m(minutes)})"
   exit
 end
 
 if input.match(/^(e|edit)$/)
-  if ! ENV['EDITOR']
-      puts "No EDITOR environment varible defined"
-      exit
-  end
+  # batch edit the logs instead
+  `subl #{$data_dir}`
+  # if ! ENV['EDITOR']
+  #     puts "No EDITOR environment varible defined"
+  #     exit
+  # end
   
-  `#{ENV['EDITOR']} #{data_dir}/current`
+  # `#{ENV['EDITOR']} #{data_dir}/current`
   exit
 end
 
@@ -91,13 +107,13 @@ end
 # If there's a current task, record the time spent on it.
 if current_task
   start, task, end_time, minutes = current_task
-
-  `/usr/bin/env mkdir -p #{$data_dir}/#{Time.now.year}`
-  File.open("#{data_dir}/#{Time.now.year}/#{start.strftime('%Y-%m-%d')}.txt",'a') do |f|
-    f.puts "#{start}\t#{end_time}\t#{task}\t#{minutes}"
+  dir = "#{$data_dir}/" + Time.now.strftime("%Y/%m_%b/")
+  `/usr/bin/env mkdir -p #{dir}`
+  File.open("#{dir}/#{start.strftime('%Y-%m-%d')}.csv",'a') do |f|
+    f.puts "#{format_time start}, #{format_time end_time}, #{task}"
   end
   
-  puts("Finished\t#{h_m(minutes)}\t#{task}")
+  puts("Finished: #{task} (#{h_m(minutes)})")
   
   File.rename("#{data_dir}/current", "#{data_dir}/last")
 end
@@ -105,6 +121,5 @@ end
 # Unless we are only marking a task done, start a new task
 if ! input.match(/^(d|done|stop|)$/)
   set_current_task(input)
-  puts "Started \tnow\t#{input}"
+  puts "Started: #{input} (#{@custom_time ? format_time(@custom_time) : 'now'})"
 end
-
