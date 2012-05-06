@@ -27,7 +27,7 @@ Stop a task, without starting a new one
     t done
     t d
   
-Edit tasks in Sublime Text 2 (define a custom editor on line 84)
+Edit tasks with your `$EDITOR`
 
     t edit
     t e

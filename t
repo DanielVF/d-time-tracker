@@ -80,14 +80,17 @@ if input.empty?
 end
 
 if input.match(/^(e|edit)$/)
-  # batch edit the logs instead
-  `subl #{$data_dir}`
-  # if ! ENV['EDITOR']
-  #     puts "No EDITOR environment varible defined"
-  #     exit
-  # end
+  if ! ENV['EDITOR']
+      puts "No EDITOR environment varible defined"
+      puts "Set your EDITOR in your .bashrc or .zshrc file by adding one of these lines:"
+      puts "\texport EDITOR='vim' # for vim"
+      puts "\texport EDITOR='subl' # for Sublime Text 2"
+      puts "\texport EDITOR='mate' # for Textmate"
+      exit
+  end
   
-  # `#{ENV['EDITOR']} #{data_dir}/current`
+  # batch edit the logs instead
+  `#{ENV['EDITOR']} #{data_dir}`
   exit
 end
 
