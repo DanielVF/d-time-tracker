@@ -30,7 +30,7 @@ Start a task at a custom time (powered by [Chronic](https://github.com/mojombo/c
 
     $ t took a break --at "5 minutes ago"
     Finished: writing t-time-tracker README (0:23)
-    Started: took a break (19:25:48)
+    Started: took a break (at 10:25pm)
 
 Stop a task, without starting a new one
 
