@@ -52,6 +52,16 @@ Resume the last stopped/done task
     $ t r
     Resuming working
 
+List today's tasks
+
+    $ t list
+    $ t l
+     2:22-11:44am: sleep (9:21)
+    11:51-12:49pm: email (0:58)
+     2:00- 2:30pm: lunch (0:30)
+     3:07- 3:10pm: HN (0:02)
+     8:55-       : adding list to t-time-tracker (0:23)
+
 To view
 -------
 

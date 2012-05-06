@@ -2,9 +2,15 @@
 # Daniel Von Fange
 # Matthias Derer
 # Christian Genco
+require 'time'
 
 # Configuration
-$data_dir = File.expand_path('~/Dropbox/.ttimetracker')
+@data_dir = File.expand_path('~/Dropbox/.ttimetracker')
+@dirname = "#{@data_dir}/" + Time.now.strftime("%Y/%m_%b/")
+@filename = "#{@dirname}#{Time.new.strftime('%Y-%m-%d')}.csv"
+
+# create directories if they doesn't exist
+`/usr/bin/env mkdir -p #{@data_dir} #{@dirname}`
 
 @custom_time = nil
 if i = ARGV.index("--at")
@@ -15,12 +21,7 @@ if i = ARGV.index("--at")
 end
 
 # Program starts
-require 'time'
-data_dir = $data_dir
 input = $*.join(' ').strip
-
-# create the data directory if it doesn't exist
-`/usr/bin/env mkdir -p #{data_dir}`
 
 def current_task
     return task("current")
@@ -31,8 +32,8 @@ def last_task
 end
 
 def task(whichtask)
-  return nil if ! File.exists?("#{$data_dir}/#{whichtask}")
-  File.open("#{$data_dir}/#{whichtask}",'r') do |f|
+  return nil if ! File.exists?("#{@data_dir}/#{whichtask}")
+  File.open("#{@data_dir}/#{whichtask}",'r') do |f|
     line = f.gets
     return if line.nil?
     # p "line: #{line}"
@@ -51,11 +52,11 @@ def format_time(t)
 end
 
 def set_current_task(task)
-  `/usr/bin/env mkdir -p #{$data_dir}`
-  if File.exists?("#{$data_dir}/last")
-    File.unlink("#{$data_dir}/last")
+  `/usr/bin/env mkdir -p #{@data_dir}`
+  if File.exists?("#{@data_dir}/last")
+    File.unlink("#{@data_dir}/last")
   end
-  File.open("#{$data_dir}/current",'w') do |f|
+  File.open("#{@data_dir}/current",'w') do |f|
     f.puts "#{format_time(@custom_time || Time.now)}, #{task.strip}"
   end
 end
@@ -90,7 +91,21 @@ if input.match(/^(e|edit)$/)
   end
   
   # batch edit the logs instead
-  `#{ENV['EDITOR']} #{data_dir}`
+  `#{ENV['EDITOR']} #{@data_dir}`
+  exit
+end
+
+if input.match(/^(l|list)$/)
+  File.open(@filename).each do |line|
+    start, end_time, task = line.split(/, ?/).map(&:strip)
+    start, end_time = Time.parse(start), Time.parse(end_time)
+    minutes = (end_time - start)/60.0
+    puts "#{start.strftime('%l:%M')}-#{end_time.strftime('%l:%M%P')}: #{task} (#{h_m minutes})"
+  end
+  if current = current_task
+    start, task, end_time, minutes = current
+    puts "#{start.strftime('%l:%M')}-       : #{task} (#{h_m minutes})"
+  end
   exit
 end
 
@@ -110,15 +125,14 @@ end
 # If there's a current task, record the time spent on it.
 if current_task
   start, task, end_time, minutes = current_task
-  dir = "#{$data_dir}/" + Time.now.strftime("%Y/%m_%b/")
-  `/usr/bin/env mkdir -p #{dir}`
-  File.open("#{dir}/#{start.strftime('%Y-%m-%d')}.csv",'a') do |f|
-    f.puts "#{format_time start}, #{format_time end_time}, #{task}"
+
+  File.open(@filename,'a') do |f|
+    f.puts "#{format_time start}, #{format_time end_time}, #{task.strip}"
   end
   
   puts("Finished: #{task} (#{h_m(minutes)})")
   
-  File.rename("#{data_dir}/current", "#{data_dir}/last")
+  File.rename("#{@data_dir}/current", "#{@data_dir}/last")
 end
 
 # Unless we are only marking a task done, start a new task
