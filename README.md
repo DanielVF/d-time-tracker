@@ -4,8 +4,8 @@
 To install
 ----------
 
-    sudo chmod 755 d
-    sudo cp d /usr/local/bin
+    sudo chmod 755 t
+    sudo cp t /usr/local/bin
 
 To use
 ------
@@ -41,7 +41,25 @@ Resume the last stopped/done task
 To view
 -------
 
-Daily files are created in month and year folders in ~/Dropbox/.ttimetracker
+Daily csv files are created in month and year folders in ~/Dropbox/.ttimetracker in the format:
+
+    .ttimetracker/
+      2012/
+        05_May/
+          2012-05-02.csv
+          2012-05-03.csv
+          2012-05-04.csv
+          2012-05-05.csv
+          2012-05-06.csv
+          ...
+        06_June/
+        ...
+      ...
+
+In each .csv file there are three columns representing the start time, end time, and description:
+
+    14:00:13, 14:30:47, making lunch
+    15:07:21, 15:10:13, HN
+    18:25:40, 18:35:08, learning how to cat daddy
 
 One day I may build a nice way to view them.
-
