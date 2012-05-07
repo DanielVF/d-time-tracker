@@ -5,7 +5,7 @@ Simple command line time tracking.
 To install
 ----------
 
-    cd /usr/local/bin/test && wget https://raw.github.com/christiangenco/t-time-tracker/master/t --no-check-certificate && chmod 755 t
+    cd /usr/local/bin/ && wget https://raw.github.com/christiangenco/t-time-tracker/master/t --no-check-certificate && chmod 755 t
 
 Depends on [Ruby](http://www.ruby-lang.org/en/downloads/) and the [Chronic](https://github.com/mojombo/chronic) gem (if you want to use custom times).
 
