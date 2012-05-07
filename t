@@ -4,10 +4,18 @@
 # Christian Genco
 require 'time'
 
+# shortcut for File.join()
+class String
+  def join(*path)
+    File.join(self, path)
+  end
+end
+
 # Configuration
-@data_dir = File.expand_path('~/Dropbox/.ttimetracker')
-@dirname = "#{@data_dir}/" + Time.now.strftime("%Y/%m_%b/")
-@filename = "#{@dirname}#{Time.new.strftime('%Y-%m-%d')}.csv"
+now = Time.now
+@data_dir = Dir.home.join('Dropbox', '.ttimetracker')
+@dirname = @data_dir.join(now.year.to_s, now.strftime("%m_%b"), '')
+@filename = @dirname.join(now.strftime('%Y-%m-%d') + '.csv')
 
 # create directories if they doesn't exist
 `/usr/bin/env mkdir -p #{@data_dir} #{@dirname}`
@@ -23,11 +31,11 @@ end
 input = $*.join(' ').sub(@custom_time_in_words || '', '').strip
 
 def task(whichtask)
-  return nil if ! File.exists?("#{@data_dir}/#{whichtask}")
-  File.open("#{@data_dir}/#{whichtask}",'r') do |f|
+  task_filename = @data_dir.join(whichtask)
+  return nil unless File.exists?(task_filename)
+  File.open(task_filename,'r') do |f|
     line = f.gets
     return if line.nil?
-    # p "line: #{line}"
     start, task = line.strip.split(",").map(&:strip)
     start = Time.parse(start)
     end_time = @custom_time || Time.new
@@ -45,11 +53,9 @@ def format_time(t)
 end
 
 def set_current_task(task)
-  `/usr/bin/env mkdir -p #{@data_dir}`
-  if File.exists?("#{@data_dir}/last")
-    File.unlink("#{@data_dir}/last")
-  end
-  File.open("#{@data_dir}/current",'w') do |f|
+  last = @data_dir.join("last")
+  File.unlink(last) if File.exists?(last)
+  File.open(@data_dir.join("current"),'w') do |f|
     f.puts "#{format_time(@custom_time || Time.now)}, #{task.strip}"
   end
 end
@@ -63,12 +69,12 @@ end
 
 # Show current task
 if input.empty?
-  if !current_task
+  unless current = current_task
     puts "You're not working on anything"
     exit
   end
     
-  start, task, end_time, minutes = current_task
+  start, task, end_time, minutes = current
   puts "In progress: #{task} (#{h_m(minutes)})"
   exit
 end
@@ -125,8 +131,7 @@ if current = current_task
   end
   
   puts("Finished: #{task} (#{h_m(minutes)})")
-  
-  File.rename("#{@data_dir}/current", "#{@data_dir}/last")
+  File.rename(@data_dir.join('current'), @data_dir.join('last'))
 end
 
 # Unless we are only marking a task done, start a new task
