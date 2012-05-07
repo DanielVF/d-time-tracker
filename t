@@ -67,17 +67,17 @@ end
 # Show current task
 if input.empty?
   unless current = current_task
-    puts "You're not working on anything"
+    STDERR.puts "You're not working on anything"
     exit
   end
     
   start, task, end_time, minutes = current
-  puts "In progress: #{task} (#{h_m(minutes)})"
+  STDERR.puts "In progress: #{task} (#{h_m(minutes)})"
   exit
 end
 
 if input.match(/^(e|edit)$/)
-  puts "opening #{@data_dir}"
+  STDERR.puts "opening #{@data_dir}"
 
   if ! ENV['EDITOR']
       puts "No EDITOR environment varible defined"
@@ -109,13 +109,13 @@ end
 
 if input.match(/^(r|resume)$/)
   if ! last_task
-    puts "No task to resume"
+    STDERR.puts "No task to resume"
     exit
   end
 
   start, task, end_time, minutes = last_task
   set_current_task(task)
-  puts "Resuming #{task}"
+  STDERR.puts "Resuming #{task}"
   exit
 end
 
@@ -127,12 +127,12 @@ if current = current_task
     f.puts "#{format_time start}, #{format_time end_time}, #{task.strip}"
   end
   
-  puts("Finished: #{task} (#{h_m(minutes)})")
+  STDERR.puts("Finished: #{task} (#{h_m(minutes)})")
   File.rename(File.join(@data_dir, 'current'), File.join(@data_dir, 'last'))
 end
 
 # Unless we are only marking a task done, start a new task
 if ! input.match(/^(d|done|stop|end|)$/)
   set_current_task(input)
-  puts "Started: #{input} (#{@custom_time ? 'at ' + @custom_time.strftime('%-l:%M%P') : 'now'})"
+  STDERR.puts "Started: #{input} (#{@custom_time ? 'at ' + @custom_time.strftime('%-l:%M%P') : 'now'})"
 end
