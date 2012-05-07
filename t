@@ -61,7 +61,7 @@ def set_current_task(task)
 end
 
 def h_m(minutes)
-  hours = (minutes.to_i / 60).floor
+  hours = minutes.to_i / 60
   hours_minutes = "#{hours}:#{'%02d' % (minutes % 60)}"
 end
 
