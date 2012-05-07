@@ -65,7 +65,7 @@ List today's tasks
 To view
 -------
 
-Daily csv files are created in month and year folders in ~/Dropbox/.ttimetracker in the format:
+Daily csv files are created in month and year folders in ~/.ttimetracker in the format:
 
     .ttimetracker/
       2012/
