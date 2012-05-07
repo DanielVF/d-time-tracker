@@ -91,6 +91,9 @@ One day I may build a nicer way to view them.
 Similar Projects
 ------------
 
-* [mcmire](https://github.com/mcmire)'s [time_tracker](https://github.com/mcmire/time_tracker)
-* [ymendel](https://github.com/ymendel)'s [one_inch_punch](https://github.com/ymendel/one_inch_punch)
-* [samg](https://github.com/samg)'s [timetrap](https://github.com/samg/timetrap)
+* [mcmire](https://github.com/mcmire)'s [time_tracker](https://github.com/mcmire/time_tracker) (ruby cli)
+* [ymendel](https://github.com/ymendel)'s [one_inch_punch](https://github.com/ymendel/one_inch_punch) (ruby gem)
+* [samg](https://github.com/samg)'s [timetrap](https://github.com/samg/timetrap) (ruby cli)
+* [timebook](https://bitbucket.org/trevor/timebook/src/) (python)
+* [freckle](http://letsfreckle.com/) ($12/month)
+* [HarvestApp](http://www.getharvest.com/) ($12/month)
