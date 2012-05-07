@@ -4,18 +4,11 @@
 # Christian Genco
 require 'time'
 
-# shortcut for File.join()
-class String
-  def join(*path)
-    File.join(self, path)
-  end
-end
-
 # Configuration
 now = Time.now
-@data_dir = Dir.home.join('Dropbox', '.ttimetracker')
-@dirname = @data_dir.join(now.year.to_s, now.strftime("%m_%b"), '')
-@filename = @dirname.join(now.strftime('%Y-%m-%d') + '.csv')
+@data_dir = File.join(Dir.home, 'Dropbox', '.ttimetracker')
+@dirname = File.join(@data_dir, now.year.to_s, now.strftime("%m_%b"), '')
+@filename = File.join(@dirname, now.strftime('%Y-%m-%d') + '.csv')
 
 # recursively create directories if they doesn't exist
 def mkdir(dir)
@@ -35,7 +28,7 @@ end
 input = $*.join(' ').sub(@custom_time_in_words || '', '').strip
 
 def task(whichtask)
-  task_filename = @data_dir.join(whichtask)
+  task_filename = File.join(@data_dir, whichtask)
   return nil unless File.exists?(task_filename)
   File.open(task_filename,'r') do |f|
     line = f.gets
@@ -57,9 +50,9 @@ def format_time(t)
 end
 
 def set_current_task(task)
-  last = @data_dir.join("last")
+  last = File.join(@data_dir, "last")
   File.unlink(last) if File.exists?(last)
-  File.open(@data_dir.join("current"),'w') do |f|
+  File.open(File.join(@data_dir, "current"),'w') do |f|
     f.puts "#{format_time(@custom_time || Time.now)}, #{task.strip}"
   end
 end
@@ -135,7 +128,7 @@ if current = current_task
   end
   
   puts("Finished: #{task} (#{h_m(minutes)})")
-  File.rename(@data_dir.join('current'), @data_dir.join('last'))
+  File.rename(File.join(@data_dir, 'current'), File.join(@data_dir, 'last'))
 end
 
 # Unless we are only marking a task done, start a new task
