@@ -91,14 +91,14 @@ One day I may build a nicer way to view them.
 Customize
 ---------
 
-By default, logs are stored in `~/Dropbox/.ttimetracker`. This can be changed by editing the line:
+By default, logs are stored in `~/.ttimetracker/`. This can be changed by editing the line:
 
-    @data_dir = Dir.home.join('Dropbox', '.ttimetracker')
+    @data_dir = File.join(Dir.home, '.ttimetracker')
 
 Directory naming and organization can also be changed by editing the lines:
 
-    @dirname = @data_dir.join(now.year.to_s, now.strftime("%m_%b"), '')
-    @filename = @dirname.join(now.strftime('%Y-%m-%d') + '.csv')
+    @dirname = File.join(@data_dir, now.year.to_s, now.strftime("%m_%b"), '')
+    @filename = File.join(@dirname, now.strftime('%Y-%m-%d') + '.csv')
 
 See the ruby doc for [strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime) for help in changing the date format.
 
