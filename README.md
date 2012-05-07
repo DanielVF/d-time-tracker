@@ -105,6 +105,7 @@ See the ruby doc for [strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#met
 Similar Projects
 ------------
 
+* [DanielVF](https://github.com/DanielVF)'s [](https://github.com/DanielVF/d-time-tracker) (ruby cli; what this project was forked from!)
 * [mcmire](https://github.com/mcmire)'s [time_tracker](https://github.com/mcmire/time_tracker) (ruby cli)
 * [ymendel](https://github.com/ymendel)'s [one_inch_punch](https://github.com/ymendel/one_inch_punch) (ruby gem)
 * [samg](https://github.com/samg)'s [timetrap](https://github.com/samg/timetrap) (ruby cli)
