@@ -17,8 +17,12 @@ now = Time.now
 @dirname = @data_dir.join(now.year.to_s, now.strftime("%m_%b"), '')
 @filename = @dirname.join(now.strftime('%Y-%m-%d') + '.csv')
 
-# create directories if they doesn't exist
-`/usr/bin/env mkdir -p #{@data_dir} #{@dirname}`
+# recursively create directories if they doesn't exist
+def mkdir(dir)
+  mkdir(File.dirname dir) unless File.dirname(dir) == dir
+  Dir.mkdir(dir) unless dir.empty? || File.directory?(dir)
+end
+mkdir @dirname
 
 if i = ARGV.index("--at")
   require 'chronic' # only load chronic if you need it
