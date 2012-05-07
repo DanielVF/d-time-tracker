@@ -130,7 +130,7 @@ if current = current_task
 end
 
 # Unless we are only marking a task done, start a new task
-if ! input.match(/^(d|done|stop|)$/)
+if ! input.match(/^(d|done|stop|end|)$/)
   set_current_task(input)
   puts "Started: #{input} (#{@custom_time ? 'at ' + @custom_time.strftime('%-l:%M%P') : 'now'})"
 end
