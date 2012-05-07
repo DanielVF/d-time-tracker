@@ -7,11 +7,11 @@ To install
 
     cd /usr/local/bin/ && wget https://raw.github.com/christiangenco/t-time-tracker/master/t --no-check-certificate && chmod 755 t
 
-Depends on [Ruby](http://www.ruby-lang.org/en/downloads/) and the [Chronic](https://github.com/mojombo/chronic) gem (if you want to use custom times).
+Depends on [Ruby](http://www.ruby-lang.org/en/downloads/) and the [Chronic](https://github.com/mojombo/chronic) gem (if you want to use custom times: `gem install chronic`).
 
-By default, logs are stored in `~/Dropbox/.ttimetracker`. This can be changed by editing the line:
+### On Windows
 
-    @data_dir = File.expand_path('~/Dropbox/.ttimetracker')
+Save [t.rb](https://raw.github.com/christiangenco/t-time-tracker/master/t) somewhere in your [path](http://www.computerhope.com/issues/ch000549.htm).
 
 To use
 ------
@@ -87,6 +87,20 @@ In each .csv file there are three columns representing the start time, end time,
     18:25:40, 18:35:08, learning how to cat daddy
 
 One day I may build a nicer way to view them.
+
+Customize
+---------
+
+By default, logs are stored in `~/Dropbox/.ttimetracker`. This can be changed by editing the line:
+
+    @data_dir = Dir.home.join('Dropbox', '.ttimetracker')
+
+Directory naming and organization can also be changed by editing the lines:
+
+    @dirname = @data_dir.join(now.year.to_s, now.strftime("%m_%b"), '')
+    @filename = @dirname.join(now.strftime('%Y-%m-%d') + '.csv')
+
+See the ruby doc for [strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime) for help in changing the date format.
 
 Similar Projects
 ------------
