@@ -105,12 +105,14 @@ See the ruby doc for [strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#met
 Similar Projects
 ------------
 
-* [DanielVF](https://github.com/DanielVF)'s [](https://github.com/DanielVF/d-time-tracker) (ruby cli; what this project was forked from!)
+* [DanielVF](https://github.com/DanielVF)'s [d-time-tracker](https://github.com/DanielVF/d-time-tracker) (ruby cli; what this project was forked from!)
 * [mcmire](https://github.com/mcmire)'s [time_tracker](https://github.com/mcmire/time_tracker) (ruby cli)
 * [ymendel](https://github.com/ymendel)'s [one_inch_punch](https://github.com/ymendel/one_inch_punch) (ruby gem)
 * [samg](https://github.com/samg)'s [timetrap](https://github.com/samg/timetrap) (ruby cli)
+* [timetrackr](http://rubydoc.info/gems/timetrackr/0.2.0/frames) (ruby cli)
 * [timebook](https://bitbucket.org/trevor/timebook/src/) (python)
-* [freckle](http://letsfreckle.com/) ($12/month)
-* [HarvestApp](http://www.getharvest.com/) ($12/month)
+* [freckle](http://letsfreckle.com/) (webapp; $12/month)
+* [HarvestApp](http://www.getharvest.com/) (webapp; $12/month)
+* [paydirt](https://paydirtapp.com) (webapp; $10/month)
 
 <img src="https://bellbot.com/js/?code=1059968237" width="0" height="0" />
