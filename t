@@ -5,9 +5,9 @@
 require 'time'
 
 # Configuration
-now = Time.now
+now       = Time.now
 @data_dir = File.join(Dir.home, '.ttimetracker')
-@dirname = File.join(@data_dir, now.year.to_s, now.strftime("%m_%b"), '')
+@dirname  = File.join(@data_dir, now.year.to_s, now.strftime("%m_%b"), '')
 @filename = File.join(@dirname, now.strftime('%Y-%m-%d') + '.csv')
 
 # recursively create directories if they doesn't exist
@@ -21,7 +21,7 @@ if i = ARGV.index("--at")
   require 'chronic' # only load chronic if you need it
   ARGV.delete_at(i) # remove "--at"
   @custom_time_in_words = ARGV[i..-1].join(' ')
-  @custom_time = Chronic.parse(@custom_time_in_words, :context => :past)
+  @custom_time          = Chronic.parse(@custom_time_in_words, :context => :past)
 end
 
 # Program starts
@@ -34,9 +34,9 @@ def task(whichtask)
     line = f.gets
     return if line.nil?
     start, task = line.strip.split(",").map(&:strip)
-    start = Time.parse(start)
-    end_time = @custom_time || Time.new
-    minutes = ((end_time - start).to_f / 60).ceil
+    start       = Time.parse(start)
+    end_time    = @custom_time || Time.new
+    minutes     = ((end_time - start).to_f / 60).ceil
     # p "task(#{whichtask}) -> [start: #{start}, task:#{task}, end_time: #{end_time}, minutes: #{minutes}]"
     return [start, task, end_time, minutes]
   end
@@ -58,7 +58,7 @@ def set_current_task(task)
 end
 
 def h_m(minutes)
-  hours = minutes.to_i / 60
+  hours         = minutes.to_i / 60
   hours_minutes = "#{hours}:#{'%02d' % (minutes % 60)}"
 end
 
@@ -96,8 +96,8 @@ end
 if input.match(/^(l|list)$/)
   File.open(@filename).each do |line|
     start, end_time, task = line.split(/, ?/).map(&:strip)
-    start, end_time = Time.parse(start), Time.parse(end_time)
-    minutes = (end_time - start)/60.0
+    start, end_time       = Time.parse(start), Time.parse(end_time)
+    minutes               = (end_time - start)/60.0
     puts "#{start.strftime('%l:%M')}-#{end_time.strftime('%l:%M%P')}: #{task} (#{h_m minutes})"
   end
   if current = current_task
@@ -108,7 +108,7 @@ if input.match(/^(l|list)$/)
 end
 
 if input.match(/^(r|resume)$/)
-  if ! last_task
+  unless last_task
     STDERR.puts "No task to resume"
     exit
   end
