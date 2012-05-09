@@ -11,7 +11,7 @@ Depends on [Ruby](http://www.ruby-lang.org/en/downloads/) and the [Chronic](http
 
 ### On Windows
 
-Save [t.rb](https://raw.github.com/christiangenco/t-time-tracker/master/t) somewhere in your [path](http://www.computerhope.com/issues/ch000549.htm).
+Save [t.rb](https://raw.github.co/DanielVF/d-time-tracker/master/t) somewhere in your [path](http://www.computerhope.com/issues/ch000549.htm).
 
 To use
 ------
@@ -19,18 +19,18 @@ To use
 Show current task:
 
     $ t
-    In progress: publishing t-time-tracker to GitHub (0:11)
+    In progress: publishing sweet code to GitHub (0:11)
   
 Start a new task and finish previous
   
-    $ t writing t-time-tracker README 
-    Finished: publishing t-time-tracker to GitHub (0:12)
-    Started: writing t-time-tracker README (now)
+    $ t writing an awesome README 
+    Finished: publishing sweet code to GitHub (0:12)
+    Started: writing an awesome README (now)
   
 Start a task at a custom time (powered by [Chronic](https://github.com/mojombo/chronic))
 
     $ t took a break --at 5 minutes ago
-    Finished: writing t-time-tracker README (0:23)
+    Finished: writing an awesome README (0:23)
     Started: took a break (at 10:25pm)
 
 Stop a task, without starting a new one
@@ -59,7 +59,7 @@ List today's tasks
      2:22-11:44am: sleep (9:21)
     11:51-12:49pm: email (0:58)
      2:00- 2:30pm: lunch (0:30)
-     3:07- 3:10pm: HN (0:02)
+     3:07- 8:17pm: HN (5:10)
      8:55-       : adding list to t-time-tracker (0:23)
 
 To view
@@ -114,5 +114,3 @@ Similar Projects
 * [freckle](http://letsfreckle.com/) (webapp; $12/month)
 * [HarvestApp](http://www.getharvest.com/) (webapp; $12/month)
 * [paydirt](https://paydirtapp.com) (webapp; $10/month)
-
-<img src="https://bellbot.com/js/?code=1059968237" width="0" height="0" />
