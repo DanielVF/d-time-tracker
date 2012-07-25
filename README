@@ -1,9 +1,14 @@
 Simple command line time tracking.
 
+Made for a coworker over lunch one day.
+
+UPDATE: Christian Genco has forked this project and added lots of new features and polish. You probably want to take a look at his version: https://github.com/christiangenco/t_time_tracker
+
 
 To install
 ----------
 
+  # after git clone
   sudo chmod 755 d
   sudo cp d /usr/local/bin
 
@@ -39,6 +44,3 @@ To view
 -------
 
 Daily files are created in year folders in ~/.dtimetracker
-
-One day I may build a nice way to view them.
-
