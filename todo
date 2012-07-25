@@ -1,2 +1,0 @@
-use reasonable option parser: OptionParser, Slop (https://github.com/injekt/slop), Shebang (https://github.com/YorickPeterse/shebang)
-namespace with "module T"
